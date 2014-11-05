@@ -11,6 +11,13 @@ import play.api.Play.current
 import anorm._
 import play.api.libs.concurrent.Execution.Implicits._
 
+  case class User(
+    name: String,
+    email: String,
+    company: String,
+    promocode: String
+  )
+
 object Application extends Controller {
 
   val loginForm = Form(
@@ -64,6 +71,33 @@ object Application extends Controller {
 
   def login = Action {
     Ok(views.html.login())
+  }
+
+  def register = Action {
+    Ok(views.html.register())
+  }
+
+//val userData = registrationForm.bindFromRequest.get
+
+  val registrationForm: Form[User] = Form(
+      mapping(
+        "name" -> nonEmptyText,
+        "email" -> nonEmptyText,
+        "company" -> nonEmptyText,
+        "promocode" -> nonEmptyText
+      )(User.apply)(User.unapply)
+  )
+
+  def registerSubmit = Action{ implicit request =>
+    println("register submit!")
+    registrationForm.bindFromRequest.fold(
+        errors => {
+          BadRequest(views.html.index())
+        },
+        user => {
+          DatabaseService.registration(user)
+        }
+    )
   }
 
 }
@@ -124,6 +158,14 @@ object DatabaseService {
     })
 
     val notification = Mandrill.sendNotification(emailContact)
+    println("Notification email")
+    notification.map({
+      notification => println(notification.body)
+    })
+  }
+
+  def registration(user: User) : Unit = {
+    val notification = Mandrill.sendRegisterNotification(user.name, user.email, user.company)
     println("Notification email")
     notification.map({
       notification => println(notification.body)

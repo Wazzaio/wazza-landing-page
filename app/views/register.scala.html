@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->  <html> <!--<![endif]-->
+
+<!-- head -->
+@views.html.head.render()
+<body>
+    @views.html.top.render()
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+          <h3 class="header">Create account</h3>
+          <form accept-charset="UTF-8" role="form" method="post">
+
+            <fieldset class="body">
+              <div class="body">
+                <div class="form-group">
+                  <input class="form-control" placeholder="Name" name="name" type="text" required>
+                </div>
+                <div >
+                  <input id="newUserEmail" class="form-control" placeholder="E-mail" name="email" type="email" required>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" placeholder="Company" name="company" type="text" required>
+                </div>
+                <div >
+                  <input id="promocode" class="form-control" placeholder="Promocode" name="promocode" type="text" value="" required>
+                </div>
+                <br>
+              </fieldset>
+
+              <div class="footer">
+                <button type="submit" class="btn btn-lg btn-success call-to-action" value="Create account">Create account</button>
+                <br>
+              </div>
+              <br>
+            </form>
+            <br><br>
+          </div>
+        </div>
+      </div>
+
+    @views.html.footer.render()
+    @views.html.scripts.render()
+
+</body>
+</html>

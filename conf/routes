@@ -8,10 +8,12 @@ GET		/about						controllers.Application.about
 GET		/how						controllers.Application.how
 GET		/contact					controllers.Application.contact
 GET		/login						controllers.Application.login
+GET		/register					controllers.Application.register
 # TODO: change this
 #GET		/blog						controllers.Application.contact
 
 POST    /submit                     controllers.Application.submit
+POST	/register					controllers.Application.registerSubmit
 
 # sitemap and robots
 GET		/sitemap.xml				controllers.Assets.at(path="/public", file="sitemap.xml")
