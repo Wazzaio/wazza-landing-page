@@ -92,21 +92,15 @@ object DatabaseService {
 
   def getAllContacts() : Unit = {
     DB.withConnection { implicit conn =>
-      val selectedContacts = SQL("Select * from Contacts")
-      val contacts = selectedContacts().map(_[String]("email")).toList
-      println(contacts.toString)
+      val selectedContacts = SQL("Select email from Contacts")
+      println(selectedContacts.toString)
     }
   }
 
   def exists(email: String) : Boolean = {
     init
     DB.withConnection { implicit conn =>
-      val number = SQL("Select * from Contacts Where email='" + email + "'")().map( _ [String]("email")).toList.size
-
-      number match {
-        case 1 => true
-        case _ => false
-      }
+      SQL("Select 1 from Contacts Where email='" + email + "'").execute();
     }
   }
 
